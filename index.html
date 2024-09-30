@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrado César</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cifrado César</h1>
+        <label for="mensaje">Mensaje:</label>
+        <input type="text" id="mensaje" placeholder="Ingrese su mensaje">
+        <label for="desplazamiento">Desplazamiento:</label>
+        <input type="number" id="desplazamiento" placeholder="Ingrese el desplazamiento" min="1" max="25">
+        <button onclick="cifrar()">Cifrar</button>
+        <button onclick="descifrar()">Descifrar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function cifrar() {
+            const mensaje = document.getElementById('mensaje').value.toUpperCase();
+            const desplazamiento = parseInt(document.getElementById('desplazamiento').value);
+            document.getElementById('resultado').innerText = procesarMensaje(mensaje, desplazamiento);
+        }
+
+        function descifrar() {
+            const mensaje = document.getElementById('mensaje').value.toUpperCase();
+            const desplazamiento = parseInt(document.getElementById('desplazamiento').value);
+            document.getElementById('resultado').innerText = procesarMensaje(mensaje, -desplazamiento);
+        }
+
+        function procesarMensaje(mensaje, desplazamiento) {
+            return mensaje.split('').map(char => {
+                if (char.match(/[A-Z]/)) {
+                    return String.fromCharCode((char.charCodeAt(0) - 65 + desplazamiento + 26) % 26 + 65);
+                }
+                return char;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
